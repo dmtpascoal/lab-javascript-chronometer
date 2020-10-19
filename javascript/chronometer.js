@@ -30,6 +30,8 @@ class Chronometer {
     this.currentTime = 0;
   }
   splitClick() {
-    // ... your code goes here
+    const min = this.getMinutes();
+    const sec = this.getSeconds();
+    return `${this.twoDigitsNumber(min)}:${this.twoDigitsNumber(sec)}`;
   }
 }
