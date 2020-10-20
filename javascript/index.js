@@ -14,15 +14,20 @@ let milUni = document.getElementById('milUni');
 let splits = document.getElementById('splits');
 
 function printTime() {
-  // ... your code goes here
+  printMinutes();
+  printSeconds();
 }
 
 function printMinutes() {
-  // ... your code goes here
+  const minutes = chronometer.twoDigitsNumber(chronometer.getMinutes());
+  minDec.innerText = minutes[0];
+  minUni.innerText = minutes[1]
 }
 
 function printSeconds() {
-  // ... your code goes here
+  const seconds = chronometer.twoDigitsNumber(chronometer.getSeconds());
+  secDec.innerText = seconds[0];
+  secUni.innerText = seconds[1];
 }
 
 // ==> BONUS
@@ -31,7 +36,7 @@ function printMilliseconds() {
 }
 
 function printSplit() {
-  // ... your code goes here
+  return chronometer.splitClick();
 }
 
 function clearSplits() {
@@ -39,7 +44,11 @@ function clearSplits() {
 }
 
 function setStopBtn() {
-  // ... your code goes here
+  chronometer.stopClick();
+  btnLeft.setAttribute('class', 'btn start');
+  btnLeft.innerText = 'START';
+  btnRight.setAttribute('class', 'btn split');
+  btnRight.innerText = 'RESET';
 }
 
 function setSplitBtn() {
@@ -47,19 +56,40 @@ function setSplitBtn() {
 }
 
 function setStartBtn() {
-  // ... your code goes here
+  chronometer.startClick();
+  btnLeft.setAttribute('class', 'btn stop');
+  btnLeft.innerText = 'STOP';
+  btnRight.setAttribute('class', 'btn reset');
+  btnRight.innerText = 'SPLIT';
+  printTimeInt = setInterval(()=>printTime(),1000);
 }
 
 function setResetBtn() {
-  // ... your code goes here
+  chronometer.resetClick();
+  clearSplits()
+  printTime();
 }
 
 // Start/Stop Button
-btnLeft.addEventListener('click', () => {
-  // ... your code goes here
+btnLeft.addEventListener("click", () => {
+  btnLeft.classList.toggle("stop");
+  btnRight.classList.toggle("start");
+
+  btnRight.classList.toggle("split");
+  btnRight.classList.toggle("reset");
+
+  if (btnLeft.innerText === "STOP") {
+    setStopBtn();
+  } else {
+    setStartBtn();
+  }
 });
 
 // Reset/Split Button
 btnRight.addEventListener('click', () => {
-  // ... your code goes here
+  if(btnRight.innerText === 'RESET'){
+    setResetBtn()
+  } else {
+    setSplitBtn()
+  }
 });
